@@ -52,7 +52,6 @@ public class AddModviewController implements Initializable {
     private TextField tfStreet;
     @FXML
     private ChoiceBox<String> cbImage;
-
     @FXML
     private Button btCancel;
     @FXML
@@ -79,8 +78,8 @@ public class AddModviewController implements Initializable {
         else{
             this.tfFirstName.setText(person.getNombre());
             this.tfLastName.setText(person.getApellidos());
-            this.tfCity.setText(person.getDireccion().getCiudad());
-            this.tfStreet.setText(person.getDireccion().getCalle());
+            this.tfCity.setText(person.getDireccion().getCiudad().get());
+            this.tfStreet.setText(person.getDireccion().getCalle().get());
             this.tfDNI.setText(person.getDNI());
             this.cbImage.getSelectionModel().select(person.getImagen());
         }
@@ -91,6 +90,9 @@ public class AddModviewController implements Initializable {
         person.setDNI(tfDNI.getText());
         person.setNombre(tfFirstName.getText());
         person.setApellidos(tfLastName.getText());
+        person.getDireccion().setCalle(tfStreet.getText());
+        person.getDireccion().setCiudad(tfCity.getText());
+        person.setImagen(cbImage.getSelectionModel().getSelectedItem());
         Node n = (Node)event.getSource();
         n.getScene().getWindow().hide();
     }

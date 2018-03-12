@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,9 +39,10 @@ import model.Residence;
  */
 public class FXMLDocumentController implements Initializable {
 
+    private Stage primaryStage;
     private ArrayList<Person> misdatos = new ArrayList<Person>();
-
-    private Label label;
+    
+    private Person persona;
     private ObservableList<Person> myData;
     @FXML
     private Button btAdd;
@@ -58,24 +60,22 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableColumn<Person, Residence> Direccion;
 
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        myData = FXCollections.observableArrayList(misdatos);
+        myData = FXCollections.observableList(misdatos);
+       
+        
         //Cargando con un par me de modelos para que no este vacia la lista.
         myData.add(new Person("123456", "John", "Doe", new Residence("Valencia", "C/False"), "Sonriente"));
         myData.add(new Person("654321", "Janet", "Doe", new Residence("Valencia", "C/Falso"), "LLoroso"));
         myData.add(new Person("456321", "Jason", "Doe", new Residence("Valencia", "C/LoL"), "Pregunta"));
         //Definiendo vistas en las columnas
-        DNI.setCellValueFactory(new PropertyValueFactory<Person, String>("DNI"));
-        elNombre.setCellValueFactory(new PropertyValueFactory<Person, String>("elNombre"));
-        //Fuck my brain(Al final lo entendi)
+        DNI.setCellValueFactory(p-> p.getValue().DNIProperty());
+        elNombre.setCellValueFactory(p -> p.getValue().ElNombreProperty());
         Direccion.setCellValueFactory(p -> p.getValue().DireccionProperty());
-        Direccion.setCellFactory(r -> {
+        Direccion.setCellFactory(d -> {
             return new TableCell<Person, Residence>() {
                 @Override
                 protected void updateItem(Residence item, boolean empty) {
@@ -83,7 +83,7 @@ public class FXMLDocumentController implements Initializable {
                     if (item == null || empty) {
                         setText(null);
                     } else {
-                        setText(item.laDireccion());
+                        setText(item.laDireccion().get());
                     }
                 }
             };
@@ -111,6 +111,8 @@ public class FXMLDocumentController implements Initializable {
 
         //Añadiendo y cargando en tableview
         tvTabla.setItems(myData);
+        tvTabla.getSelectionModel().selectedItemProperty().addListener((o,oldval,newval)->{
+        persona = newval;});
 
     }
 
@@ -131,12 +133,12 @@ public class FXMLDocumentController implements Initializable {
             stageActual.show();
 
             if (boton.getText().equals("Añadir")) {
-                
-                personWindow.initStage(stageActual, p, boton.getText());
-                myData.add(p);
+                persona = new Person();
+                personWindow.initStage(stageActual, persona, boton.getText());
+                myData.add(persona);
 
             } else if (boton.getText().equals("Modificar")) {
-                personWindow.initStage(stageActual, this.tvTabla.getSelectionModel().getSelectedItem(), boton.getText());
+                personWindow.initStage(stageActual, persona, boton.getText());
                 //Cargar los datos del item seleccionado y modificar los datos del mismo.
             }
         } catch (IOException e) {
@@ -151,5 +153,6 @@ public class FXMLDocumentController implements Initializable {
         Person person = tvTabla.getSelectionModel().getSelectedItem();
         myData.remove(person);
     }
+    
 
 }

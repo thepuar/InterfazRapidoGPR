@@ -15,35 +15,32 @@ import javafx.beans.property.StringProperty;
 public class Residence {
     private StringProperty ciudad = new SimpleStringProperty();
     private StringProperty calle = new SimpleStringProperty();
-    private StringProperty laDireccion = new SimpleStringProperty();
 
-    public String getCiudad() {
-        return ciudad.get();
+    public StringProperty getCiudad() {
+        return ciudad;
     }
 
     public void setCiudad(String ciudad) {
-        this.ciudad.setValue(ciudad);
+        this.ciudad.set(ciudad);
     }
-       public StringProperty CiudadProperty(){return this.ciudad;}
-
-    public String getCalle() {
-        return calle.get();
+    public StringProperty getCalle() {
+        return calle;
     }
 
     public void setCalle(String calle) {
-        this.calle.setValue(calle);
+        this.calle.set(calle);
     }
     
-    public StringProperty CalleProperty(){return this.calle;}
 
     public Residence(String ciudad, String calle) {
         this.ciudad.set(ciudad);
         this.calle.set(calle);
-        this.laDireccion.set(this.getCiudad()+" - "+this.getCalle());
     }
     
-    public String laDireccion(){
-        return this.getCiudad()+" - "+this.getCalle();
+    public StringProperty laDireccion(){
+        StringProperty value =  new SimpleStringProperty();
+        value.set(this.getCiudad().get()+" - "+this.getCalle().get());
+        return value;
     }
     
     
