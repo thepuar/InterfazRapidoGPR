@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -59,6 +62,8 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<Person, String> elNombre;
     @FXML
     private TableColumn<Person, Residence> Direccion;
+    @FXML
+    private Button btDel;
 
     
 
@@ -88,6 +93,7 @@ public class FXMLDocumentController implements Initializable {
                 }
             };
         });
+        
         Picture.setCellValueFactory(p -> p.getValue().ImagenProperty());
         Picture.setCellFactory(c -> {
             return new TableCell<Person, String>() {
@@ -113,7 +119,10 @@ public class FXMLDocumentController implements Initializable {
         tvTabla.setItems(myData);
         tvTabla.getSelectionModel().selectedItemProperty().addListener((o,oldval,newval)->{
         persona = newval;});
-
+        
+        BooleanBinding personSelected = Bindings.isEmpty(tvTabla.getSelectionModel().getSelectedItems());
+        this.btMod.disableProperty().bind(personSelected);
+        this.btDel.disableProperty().bind(personSelected);
     }
 
     @FXML

@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Person;
+import model.Residence;
 
 /**
  * FXML Controller class
@@ -90,8 +91,11 @@ public class AddModviewController implements Initializable {
         person.setDNI(tfDNI.getText());
         person.setNombre(tfFirstName.getText());
         person.setApellidos(tfLastName.getText());
-        person.getDireccion().setCalle(tfStreet.getText());
-        person.getDireccion().setCiudad(tfCity.getText());
+        //Solo funciona al crear una nueva direccion
+        Residence residence = new Residence(tfCity.getText(), tfStreet.getText());
+        person.setDireccion(residence);
+        //person.getDireccion().setCalle(tfStreet.getText());
+        //person.getDireccion().setCiudad(tfCity.getText());
         person.setImagen(cbImage.getSelectionModel().getSelectedItem());
         Node n = (Node)event.getSource();
         n.getScene().getWindow().hide();
