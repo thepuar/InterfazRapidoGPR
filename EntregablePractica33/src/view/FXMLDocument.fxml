@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLDocumentController">
+   <top>
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btAdd" mnemonicParsing="false" onAction="#addModBtn" text="Añadir" />
+            <Button fx:id="btMod" mnemonicParsing="false" onAction="#addModBtn" text="Modificar" />
+            <Button mnemonicParsing="false" onAction="#delBtn" text="Eliminar" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" top="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <left>
+      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="20.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="20.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <Pane maxWidth="1.7976931348623157E308" prefHeight="20.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+      <TableView fx:id="tvTabla" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="DNI" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="-1.0" text="elDNI" />
+          <TableColumn fx:id="elNombre" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Nombre y apellidos" />
+            <TableColumn fx:id="Direccion" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Direccion" />
+            <TableColumn fx:id="Picture" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Imagen" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
