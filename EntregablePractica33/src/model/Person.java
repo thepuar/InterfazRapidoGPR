@@ -49,8 +49,9 @@ public class Person {
         return nombre.get();
     }
 
-    public void setNombre(StringProperty nombre) {
-        this.nombre = nombre;
+    public void setNombre(String nombre) {
+        this.nombre.setValue(nombre);
+        this.elNombre.setValue(this.nombre.get()+" - "+this.apellidos.get());
     }
     
     public StringProperty NombreProperty(){return this.nombre;}
@@ -59,8 +60,9 @@ public class Person {
         return apellidos.get();
     }
 
-    public void setApellidos(StringProperty apellidos) {
-        this.apellidos = apellidos;
+    public void setApellidos(String apellidos) {
+        this.apellidos.setValue(apellidos);
+        this.elNombre.setValue(this.nombre.get()+" - "+this.apellidos.get());
     }
     
     public StringProperty AppelidosProperty(){return this.apellidos;}
@@ -88,6 +90,8 @@ public class Person {
     public String getElNombre() {
         return elNombre.get();
     }
+    
+    public StringProperty ElNombreProperty(){return this.elNombre;}
 
     
     
